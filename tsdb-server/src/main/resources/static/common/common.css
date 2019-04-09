@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+html{
+	height:100%;
+	width:100%;
+}
+body{
+	height:100%;
+	width:100%;
+	padding-top:10px;
+}
+.flex-container-column{
+	display:flex;
+	flex-flow:column;
+}
+
+.flex-container-row{
+	display:flex;
+	flex-flow:row;
+}
+
+.flex-item{
+	flex:1 1 auto;
+}
+
+.input-group-addon{
+	padding:0px;
+	width:56px;
+}
+
+.input-group-addon select{
+	padding:0px;
+	width:54px;
+	border:0px;
+	height:32px;
+}
+
+
+
+
+
+

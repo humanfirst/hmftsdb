@@ -1,0 +1,12 @@
+/*.classpath
+/*.project
+/.settings
+/tsdb-api/target
+/tsdb-server/target
+/tsdb-api/.settings
+/tsdb-api/*.classpath
+/tsdb-api/*.project
+/tsdb-server/*.springBeans
+/tsdb-server/*.classpath
+/tsdb-server/*.project
+/tsdb-server/.settings

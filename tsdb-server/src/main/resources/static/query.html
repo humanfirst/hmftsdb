@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<link href="common/bootstrap.min.css" rel="stylesheet">
+    	<link href="common/bootstrap-theme.min.css" rel="stylesheet">
+    	<link href="common/common.css" rel="stylesheet">
+    	<script src="common/jquery-3.3.1.js"></script>
+    	<script src="common/bootstrap.js"></script>
+    	<script src="common/tichart.js"></script>
+    	<script src="common/zrender.js"></script>
+		<script>
+		
+		$(document).ready(function(){
+			var chart = new MyChart("main");
+			
+			var defaultStart ,defaultEnd;
+			defaultEnd = new Date().getTime();
+			defaultStart = defaultEnd- 2*chart.hourLen;
+			
+			chart.moveTo=function(from,to){
+			}
+			
+			chart.drawTitle=function(s){
+				if(s.tags!=null && s.tags.device!=null)
+					return s.metric+"@"+s.tags.device;
+				else 
+					return s.metric;
+			}
+			
+			chart.flagInfo = function(p){
+				var r = new Array();
+				for(var i=0;i<p.length;i++){
+					var time = p[i][2];
+					var value = p[i][3];
+					if(i>0){
+						r.push("<br/>");
+					}
+					var info ='<span class="glyphicon glyphicon-flag" aria-hidden="true" style="color:'+this.colors[i]+'"></span>' +new Date(time).format("yyyy-MM-dd hh:mm:ss")+' : '+value;
+					r.push(info);
+				}
+				return r.join("");
+			}
+			
+		    function showResult(data,start,end){
+		    	chart.draw(data);
+		    }
+		    
+		    
+		    function doQuery(query){
+		    	$.ajax({
+	                type: "POST",
+	                url: "query/findHistoryData",
+	                data: {"query":query},
+	              //contentType: 'application/json;charset=utf-8',
+	                success:function(result){
+	                	if(result.success){
+	                		showResult(result.body,query.start,query.end);
+	                	}else{
+	                		alert(result.info);
+	                	}
+	                }
+	            });
+		    }
+		    
+		    $("#submit").on("click",function(){
+		    	if(window.myInterval!=null){
+		    		clearInterval(window.myInterval);
+		    	}
+		    	var query = $("#exp").val();
+				doQuery(query);
+		    	return false;
+		    });
+		    
+		    $("#autoRefresh").on("click",function(){
+		    	var query = $("#exp").val();
+		    	var p = 1000* $("#period").val();
+		    	if(p==null || p==""){
+		    		alert("请设置刷新间隔");
+		    		return false;
+		    	}
+		    	if(window.myInterval!=null){
+		    		clearInterval(window.myInterval);
+		    	}
+				window.myInterval = setInterval(function(){
+					var now = new Date();
+					console.log("refresh at:"+now)
+					doQuery(query);
+				},p);
+		    	return false;
+		    });
+				                    
+		});
+		
+		</script>
+	</head>
+	<body class="flex-container-column container-fluid" >
+		<form id="query" class="form-horizontal" style="padding-right:20px;">
+		<div class="form-group">
+            <div class="col-xs-7">
+            	<input type="text" class="form-control " id="exp" name="exp" placeholder="请输入表达式"/>
+            </div>
+            <div class="col-xs-2">
+            	<input type="text" class="form-control " id="period" name="period" placeholder="刷新间隔(秒)"/>
+            </div>
+            <div class="col-xs-2">
+           		<button id="autoRefresh" type="submit" class="btn btn-primary">自动刷新</button>
+           	</div>
+           	<div class="col-xs-1">
+	            <button id="submit" type="submit" class="btn btn-primary">查&nbsp;&nbsp;询</button>
+	        </div>
+        </div>
+          
+        </form>
+		<div id="main" class="flex-item" style="margin:20px;margin-left:80px;">
+			
+	    </div>
+	</body>
+</html>
