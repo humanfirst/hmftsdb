@@ -103,7 +103,70 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>target/tsdb-server-2.0-SNAPSHOT.jar</sourceFile>
+                            <destinationFile>bin/tsdb.jar</destinationFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-sh</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>start.sh</sourceFile>
+                            <destinationFile>bin/start.sh</destinationFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-cmd</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>start.cmd</sourceFile>
+                            <destinationFile>bin/start.cmd</destinationFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-logback</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>src/main/resources/logback.xml</sourceFile>
+                            <destinationFile>bin/logback.xml</destinationFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-properties</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>src/main/resources/application.properties</sourceFile>
+                            <destinationFile>bin/application.properties</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
+			
 	</build>
   
 </project>

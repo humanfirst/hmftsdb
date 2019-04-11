@@ -10,3 +10,5 @@
 /tsdb-server/*.classpath
 /tsdb-server/*.project
 /tsdb-server/.settings
+/tsdb-server/bin
+/tsdb-server/logs

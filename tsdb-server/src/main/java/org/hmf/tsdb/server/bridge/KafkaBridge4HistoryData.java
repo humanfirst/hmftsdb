@@ -39,13 +39,13 @@ public class KafkaBridge4HistoryData implements ApplicationListener<ContextRefre
 	@Value("${kafka.consumer.bootstrap-servers}")
 	private String servers;
 	
-	@Value("${kafka.consumer.group-id.history}")
+	@Value("${kafka.consumer.group-id}")
 	private String groupId;
 	
 	@Value("${kafka.consumer.topic}")
 	private String topic;
 	
-	@Value("${kafka.consumer.thread.history.size}")
+	@Value("${kafka.consumer.thread.size}")
 	private int threadSize;
 	
 	private boolean running = false;

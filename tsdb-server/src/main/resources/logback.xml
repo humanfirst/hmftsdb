@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE xml>
 <configuration scan="true" scanPeriod="1800 seconds" debug="false" >
-    <property name="LOG_HOME" value="e:/logs" />  
+    <property name="LOG_HOME" value="./logs" />  
     <!-- 控制台输出 -->   
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">   
@@ -22,7 +22,7 @@
        </layout> 
         <!--日志文件最大的大小-->
        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-         <MaxFileSize>50MB</MaxFileSize>
+         <MaxFileSize>100MB</MaxFileSize>
        </triggeringPolicy>
     </appender>
 

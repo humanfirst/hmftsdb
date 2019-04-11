@@ -1,15 +1,14 @@
 package org.hmf.tsdb.server;
 import java.nio.charset.Charset;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.hmf.tsdb.server.service.DataPointService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -25,7 +24,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 @Component
-public class Server {
+public class Server implements ApplicationListener<ContextRefreshedEvent>{
 	private static Logger logger = LoggerFactory.getLogger(Server.class);
 	
 	private boolean closed = false;
@@ -33,6 +32,9 @@ public class Server {
 	private EventLoopGroup bossGroup = null;
 	
 	private EventLoopGroup workerGroup = null;
+	
+	@Autowired
+	private DataPointService service;
 
 	@Autowired
 	private ServerNode node = null;
@@ -63,17 +65,6 @@ public class Server {
 		}
 	}
 	
-	@PostConstruct
-	public void start(){
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask(){
-			@Override
-			public void run() {
-				startServer();
-			}
-		}, 1000);
-	}
-	
 	
 	public void startServer(){		
 		bossGroup = new NioEventLoopGroup();
@@ -90,7 +81,7 @@ public class Server {
 	                	 ch.pipeline().addLast(new IdleStateHandler(0,0,60));
 	                	 ch.pipeline().addLast(new LineBasedFrameDecoder(100*1024*1024));
 	                	 ch.pipeline().addLast(new StringDecoder(Charset.forName("UTF-8")));
-	                     ch.pipeline().addLast(new ServerHandler());
+	                     ch.pipeline().addLast(new ServerHandler(service));
 	                 }
 	             })
              	.option(ChannelOption.SO_BACKLOG, 512)          
@@ -107,5 +98,13 @@ public class Server {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
+	}
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		Thread t = new Thread(()->{
+			startServer();
+		}) ;
+		t.start();		
 	}
 }

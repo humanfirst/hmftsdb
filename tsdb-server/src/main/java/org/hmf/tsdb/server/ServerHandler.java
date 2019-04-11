@@ -29,8 +29,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
 	ObjectMapper objMapper = new ObjectMapper();
 	private DataPointService service ;
 	
-	public ServerHandler() {
-		service = (DataPointService) TsdbApplication.getBean(DataPointService.class);
+	public ServerHandler(DataPointService service) {
+		this.service = service;
 	}
 	
 	private Response<Boolean> doPut(String group,JsonNode root,ChannelHandlerContext ctx)throws Exception{		
