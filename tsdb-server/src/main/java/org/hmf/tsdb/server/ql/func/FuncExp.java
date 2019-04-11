@@ -12,8 +12,6 @@ import org.hmf.tsdb.server.ql.Exp;
 
 /**
  * 函数表达式
- * @author hexiaodong
- *
  */
 public abstract class FuncExp extends Exp {
 	protected List<String> by =  new ArrayList<String>();

@@ -23,7 +23,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * 连接服务器端处理器
- * @author hexiaodong
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter{
 	private Logger logger = LoggerFactory.getLogger(ServerHandler.class);

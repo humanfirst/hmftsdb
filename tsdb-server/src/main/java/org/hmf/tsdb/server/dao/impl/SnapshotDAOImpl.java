@@ -21,9 +21,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 
 /**
- * 索引:shardIdx,_id; parent,_id; shardIdx,type;
- * 
- * @author DELL
  *
  */
 @Repository(value="snapshot")
