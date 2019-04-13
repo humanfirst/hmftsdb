@@ -1,1 +1,1 @@
-java -server -Xms1024m -Xmx2048m -jar tsdb.jar --logging.config=logback.xml
+java -server -Xms128m -Xmx512m -jar dps-producer.jar --logging.config=logback.xml

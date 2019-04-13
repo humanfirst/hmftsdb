@@ -1,1 +1,1 @@
-nohup java -server -Xms1024m -Xmx2048m -jar tsdb-server-2.0-SNAPSHOT.jar --logging.config=logback.xml >out.log 2>&1 &
+nohup java -server -Xms128m -Xmx512m -jar dps-producer.jar --logging.config=logback.xml

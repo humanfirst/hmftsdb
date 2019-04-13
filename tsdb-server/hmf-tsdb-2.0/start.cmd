@@ -1,1 +1,0 @@
-java -server -Xms1024m -Xmx2048m -jar tsdb.jar --logging.config=logback.xml
