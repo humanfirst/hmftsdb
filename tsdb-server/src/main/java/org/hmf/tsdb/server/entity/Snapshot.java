@@ -6,7 +6,6 @@ import java.util.Date;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.hmf.tsdb.DataPoint;
-import org.hmf.tsdb.server.exception.ExceedException;
 import org.hmf.tsdb.server.exception.TimeBoundException;
 import org.hmf.tsdb.server.history.DataPointStream;
 import org.hmf.tsdb.util.ByteUtils;
@@ -190,9 +189,7 @@ public class Snapshot extends Entity<ObjectId>{
 				stream.write(dp);
 			} catch (TimeBoundException e) {
 				e.printStackTrace();
-			} catch (ExceedException e) {
-				e.printStackTrace();
-			}
+			} 
 		
 		}
 		System.out.println(stream.getPointer());
@@ -209,9 +206,7 @@ public class Snapshot extends Entity<ObjectId>{
 			stream.write(dp);
 		} catch (TimeBoundException e) {
 			e.printStackTrace();
-		} catch (ExceedException e) {
-			e.printStackTrace();
-		}
+		} 
 		ss.writeAdditionData(stream);
 		System.out.println(stream.getPointer());
 		System.out.println(stream.getPreSnapshotAt());

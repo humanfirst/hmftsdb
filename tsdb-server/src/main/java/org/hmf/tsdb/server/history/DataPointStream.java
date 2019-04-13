@@ -6,7 +6,6 @@ import java.util.Date;
 import org.hmf.tsdb.DataPoint;
 import org.hmf.tsdb.server.entity.Fragment;
 import org.hmf.tsdb.server.entity.Metric;
-import org.hmf.tsdb.server.exception.ExceedException;
 import org.hmf.tsdb.server.exception.TimeBoundException;
 import org.hmf.tsdb.util.ByteUtils;
 import org.slf4j.Logger;
@@ -126,15 +125,19 @@ public class DataPointStream {
 		return this.readHour();
 	}
 	
-	public void write(Fragment fragment) {		
+	public void write(Fragment fragment) {	
+		try {
 		System.arraycopy(fragment.data, 0, this.bytes, this.pointer, fragment.data.length);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		this.pointer = this.pointer+fragment.data.length;
 		this.preSnapshotAt = this.pointer;
 		if((this.pointer-4)%6>0) {
 			System.out.println();
 		}
 	}
-	public void write(DataPoint dp) throws TimeBoundException, ExceedException {	
+	public void write(DataPoint dp) throws TimeBoundException {	
 		if(dp.getTime()<=this.lastSampleTime) {
 			return ;
 		}
@@ -144,7 +147,7 @@ public class DataPointStream {
 		}else {
 			long currentHour = this.readHour();
 			if(pointer>=this.bytes.length) {
-				throw new ExceedException("DataPointStream已达存储上限!");
+				logger.error("DataPointStream已达存储上限!当前采样时间:{},前一个数据的采样时间:{}",new Date(dp.getTime()),new  Date(this.lastSampleTime)) ;
 			}
 			if(sampleHour>currentHour) {
 				throw new TimeBoundException("新的DataPoint属于下一个小时");
@@ -154,6 +157,7 @@ public class DataPointStream {
 		}
 		
 		long second = (dp.getTime() % 3600000)/1000;
+		
 		
 		//write sample time
 		byte[] secondBytes = ByteUtils.changeIntTo2Bytes((int)second);		

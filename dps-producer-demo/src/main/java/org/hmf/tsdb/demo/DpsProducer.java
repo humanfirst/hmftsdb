@@ -64,7 +64,7 @@ public class DpsProducer {
 					if(k<=5) {
 						dp.setMetric(metricName[k-1]);
 					}else {
-						dp.setMetric("metric_i");
+						dp.setMetric("metric_"+k);
 					}
 					dp.setTags(tags);
 					metrics.add(dp);

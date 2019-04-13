@@ -21,7 +21,6 @@ import org.hmf.tsdb.server.entity.DpsInHour;
 import org.hmf.tsdb.server.entity.Fragment;
 import org.hmf.tsdb.server.entity.Metric;
 import org.hmf.tsdb.server.entity.Snapshot;
-import org.hmf.tsdb.server.exception.ExceedException;
 import org.hmf.tsdb.server.exception.TimeBoundException;
 import org.hmf.tsdb.server.service.MetricService;
 import org.slf4j.Logger;
@@ -244,9 +243,7 @@ public class DataPointStreamGroup {
 				stream.setStatus(DataPointStream.Status.finished);
 				this.finishedStreams.offer(stream);
 				extStream = this.getExtStream(m);					
-			} catch (ExceedException e) {
-				throw e;
-			}
+			} 
 			//如果切换到extStream，则把dp写入extStream
 			if(extStream!=null) {
 				extStream.write(dp);
