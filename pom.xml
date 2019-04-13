@@ -17,7 +17,8 @@
   		<module>tsdb-api</module>
   		<module>tsdb-server</module>
 
-  		
+
+  		<module>dps-producer-demo</module>
   	</modules>
   	<build>
 	  	<plugins> 

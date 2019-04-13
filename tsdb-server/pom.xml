@@ -116,7 +116,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>target/tsdb-server-2.0-SNAPSHOT.jar</sourceFile>
-                            <destinationFile>bin/tsdb.jar</destinationFile>
+                            <destinationFile>hmf-tsdb-2.0/tsdb.jar</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -127,7 +127,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>start.sh</sourceFile>
-                            <destinationFile>bin/start.sh</destinationFile>
+                            <destinationFile>hmf-tsdb-2.0/start.sh</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -138,7 +138,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>start.cmd</sourceFile>
-                            <destinationFile>bin/start.cmd</destinationFile>
+                            <destinationFile>hmf-tsdb-2.0/start.cmd</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -149,7 +149,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>src/main/resources/logback.xml</sourceFile>
-                            <destinationFile>bin/logback.xml</destinationFile>
+                            <destinationFile>hmf-tsdb-2.0/logback.xml</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -160,7 +160,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>src/main/resources/application.properties</sourceFile>
-                            <destinationFile>bin/application.properties</destinationFile>
+                            <destinationFile>hmf-tsdb-2.0/application.properties</destinationFile>
                         </configuration>
                     </execution>
                 </executions>

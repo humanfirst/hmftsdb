@@ -12,3 +12,10 @@
 /tsdb-server/.settings
 /tsdb-server/bin
 /tsdb-server/logs
+/dps-producer-demo/.settings
+/dps-producer-demo/demo
+/dps-producer-demo/logs
+/dps-producer-demo/target
+/dps-producer-demo/*.classpath
+/dps-producer-demo/*.project
+/tsdb-server/*.rar
